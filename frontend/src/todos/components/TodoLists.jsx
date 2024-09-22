@@ -15,9 +15,27 @@ import { TodoListForm } from './TodoListForm'
 const fetchTodoLists = () =>
   fetch('http://localhost:3001/todo-lists/').then((response) => response.json())
 
+const addTodo = (listId, todo) =>
+  fetch(`http://localhost:3001/todo-list/${listId}/todo`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(todo),
+  }).then((response) => response.json())
+
 export const TodoLists = ({ style }) => {
   const [todoLists, setTodoLists] = useState({})
   const [activeList, setActiveList] = useState()
+
+  const addTodoHandler = (listId, todo) =>
+    addTodo(listId, todo).then((updatedList) => {
+      setTodoLists({
+        ...todoLists,
+        [listId]: updatedList,
+      })
+      return updatedList
+    })
 
   useEffect(() => {
     fetchTodoLists().then((fetchedLists) => {
@@ -55,6 +73,7 @@ export const TodoLists = ({ style }) => {
               [id]: { ...listToUpdate, todos },
             })
           }}
+          onAddTodo={addTodoHandler}
         />
       )}
     </Fragment>
