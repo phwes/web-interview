@@ -20,6 +20,11 @@ class TodoList {
     this.name = name
     this.todos = todos
   }
+
+  addTodo = (text: string) => {
+    const todo = new Todo(text)
+    this.todos.push(todo)
+  }
 }
 
 export default TodoList
