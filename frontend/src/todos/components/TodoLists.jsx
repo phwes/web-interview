@@ -11,6 +11,11 @@ import {
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import { TodoListForm } from './TodoListForm'
 
+const deleteTodo = (listId, todoId) =>
+  fetch(`http://localhost:3001/todo-list/${listId}/todo/${todoId}`, {
+    method: 'DELETE',
+  }).then((response) => response.json())
+
 // TODO: Use common TodoList package for contract
 const fetchTodoLists = () =>
   fetch('http://localhost:3001/todo-lists/').then((response) => response.json())
@@ -35,6 +40,14 @@ export const TodoLists = ({ style }) => {
         [listId]: updatedList,
       })
       return updatedList
+    })
+
+  const deleteTodoHandler = (listId, todoId) =>
+    deleteTodo(listId, todoId).then((updatedList) => {
+      setTodoLists({
+        ...todoLists,
+        [listId]: updatedList,
+      })
     })
 
   useEffect(() => {
@@ -74,6 +87,7 @@ export const TodoLists = ({ style }) => {
             })
           }}
           onAddTodo={addTodoHandler}
+          onDeleteTodo={deleteTodoHandler}
         />
       )}
     </Fragment>

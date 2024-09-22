@@ -3,7 +3,7 @@ import { TextField, Card, CardContent, CardActions, Button, Typography } from '@
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
 
-export const TodoListForm = ({ todoList, saveTodoList, onAddTodo }) => {
+export const TodoListForm = ({ todoList, saveTodoList, onAddTodo, onDeleteTodo }) => {
   const [todos, setTodos] = useState(todoList.todos)
 
   const handleSubmit = (event) => {
@@ -43,6 +43,7 @@ export const TodoListForm = ({ todoList, saveTodoList, onAddTodo }) => {
                 color='secondary'
                 onClick={() => {
                   setTodos([...todos.slice(0, index), ...todos.slice(index + 1)])
+                  onDeleteTodo(todoList.id, todo.id)
                 }}
               >
                 <DeleteIcon />
