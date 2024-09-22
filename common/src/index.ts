@@ -1,3 +1,3 @@
-import TodoList from './TodoList'
-import Todo from './Todo'
+import TodoList from './TodoList.js'
+import Todo from './Todo.js'
 export { TodoList, Todo }

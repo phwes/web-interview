@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 
-import attachTodoLists from './middleware/attachTodoLists'
-import routes from './routes/index'
+import attachTodoLists from './middleware/attachTodoLists.js'
+import routes from './routes/index.js'
 import { Todo, TodoList } from '@todo-list/common'
 
 const app = express()
