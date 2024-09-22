@@ -29,6 +29,15 @@ const addTodo = (listId, todo) =>
     body: JSON.stringify(todo),
   }).then((response) => response.json())
 
+const editTodo = (listId, todoId, todo) =>
+  fetch(`http://localhost:3001/todo-list/${listId}/todo/${todoId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(todo),
+  }).then((response) => response.json())
+
 export const TodoLists = ({ style }) => {
   const [todoLists, setTodoLists] = useState({})
   const [activeList, setActiveList] = useState()
@@ -44,6 +53,14 @@ export const TodoLists = ({ style }) => {
 
   const deleteTodoHandler = (listId, todoId) =>
     deleteTodo(listId, todoId).then((updatedList) => {
+      setTodoLists({
+        ...todoLists,
+        [listId]: updatedList,
+      })
+    })
+
+  const editTodoHandler = (listId, todoId, todo) =>
+    editTodo(listId, todoId, todo).then((updatedList) => {
       setTodoLists({
         ...todoLists,
         [listId]: updatedList,
@@ -79,15 +96,9 @@ export const TodoLists = ({ style }) => {
         <TodoListForm
           key={activeList} // use key to make React recreate component to reset internal state
           todoList={todoLists[activeList]}
-          saveTodoList={(id, { todos }) => {
-            const listToUpdate = todoLists[id]
-            setTodoLists({
-              ...todoLists,
-              [id]: { ...listToUpdate, todos },
-            })
-          }}
           onAddTodo={addTodoHandler}
           onDeleteTodo={deleteTodoHandler}
+          onEditTodo={editTodoHandler}
         />
       )}
     </Fragment>
