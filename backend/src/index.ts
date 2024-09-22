@@ -3,13 +3,16 @@ import cors from 'cors'
 
 import attachTodoLists from './middleware/attachTodoLists'
 import routes from './routes/index'
-import { TodoList } from '@todo-list/common'
+import { Todo, TodoList } from '@todo-list/common'
 
 const app = express()
 
+const firstTodo = new Todo('First todo of first list!')
+const secondTodo = new Todo('First todo of second list!')
+
 const todoLists = [
-  new TodoList('First List', ['First todo of first list!']),
-  new TodoList('Second List', ['First todo of second list!']),
+  new TodoList('First List', [firstTodo]),
+  new TodoList('Second List', [secondTodo]),
 ]
 
 app.use(cors())
