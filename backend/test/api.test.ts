@@ -39,4 +39,16 @@ describe('API endpoints', () => {
     expect(response.body.todos).toHaveLength(2)
     expect(response.body.todos[1].text).toBe('Second todo of first list!')
   })
+
+  test('PATCH /todo-list/:listId/todo/:todoId', async () => {
+    const listId = todoLists[0].id
+    const todoId = todoLists[0].todos[0].id
+
+    const response = await request(app)
+      .patch(`/todo-list/${listId}/todo/${todoId}`)
+      .send({ text: 'Updated first todo of first list!' })
+      .expect(200)
+
+    expect(response.body.todos[0].text).toBe('Updated first todo of first list!')
+  })
 })
