@@ -35,6 +35,10 @@ class TodoList {
 
     todo.text = text
   }
+
+  deleteTodo = (todoId: string) => {
+    this.todos = this.todos.filter((todo) => todo.id !== todoId)
+  }
 }
 
 export default TodoList

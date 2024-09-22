@@ -34,6 +34,20 @@ const todoListRoutes = (router: Router) => {
 
     res.json(todoList)
   })
+
+  router.delete('/todo-list/:listId/todo/:todoId', (req: Request, res: Response) => {
+    const { listId, todoId } = req.params
+
+    let todoList = req.todoLists.find(({ id }) => id === listId)
+
+    if (!todoList) {
+      return res.status(404).json({ message: 'List not found' })
+    }
+
+    todoList.deleteTodo(todoId)
+
+    res.json(todoList)
+  })
 }
 
 export default todoListRoutes

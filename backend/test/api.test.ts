@@ -51,4 +51,14 @@ describe('API endpoints', () => {
 
     expect(response.body.todos[0].text).toBe('Updated first todo of first list!')
   })
+
+  test('DELETE /todo-list/:listId/todo/:todoId', async () => {
+    const listId = todoLists[0].id
+    const todoId = todoLists[0].todos[0].id
+
+    const response = await request(app).delete(`/todo-list/${listId}/todo/${todoId}`).expect(200)
+
+    expect(response.body.todos).toHaveLength(1)
+    expect(response.body.todos[0].text).toBe('Second todo of first list!')
+  })
 })
