@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { TextField, Card, CardContent, CardActions, Button, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import AddIcon from '@mui/icons-material/Add'
 
 export const TodoListForm = ({ todoList, onAddTodo, onDeleteTodo, onEditTodo }) => {
@@ -21,6 +22,7 @@ export const TodoListForm = ({ todoList, onAddTodo, onDeleteTodo, onEditTodo }) 
                 sx={{ flexGrow: 1, marginTop: '1rem' }}
                 label='What to do?'
                 value={todo.text}
+                disabled={todo.isDone}
                 onBlur={() => {
                   onEditTodo(todoList.id, todo.id, { text: todo.text }).then(() => setIsSaved(true))
                 }}
@@ -43,6 +45,23 @@ export const TodoListForm = ({ todoList, onAddTodo, onDeleteTodo, onEditTodo }) 
                 }}
               >
                 <DeleteIcon />
+              </Button>
+              <Button
+                sx={{ margin: '8px' }}
+                size='small'
+                color={todo.isDone ? 'primary' : 'inherit'}
+                onClick={() => {
+                  setTodos([
+                    ...todos.slice(0, index),
+                    { ...todo, isDone: !todo.isDone },
+                    ...todos.slice(index + 1),
+                  ])
+                  onEditTodo(todoList.id, todo.id, { ...todo, isDone: !todo.isDone }).then(() =>
+                    setIsSaved(true)
+                  )
+                }}
+              >
+                <CheckCircleIcon />
               </Button>
             </div>
           ))}

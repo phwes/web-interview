@@ -22,7 +22,7 @@ const todoListRoutes = (router: Router) => {
 
   router.patch('/todo-list/:listId/todo/:todoId', (req: Request, res: Response) => {
     const { listId, todoId } = req.params
-    const { text } = req.body
+    const { text, isDone } = req.body
 
     const todoList = req.todoLists.find(({ id }) => id === listId)
 
@@ -30,7 +30,7 @@ const todoListRoutes = (router: Router) => {
       return res.status(404).json({ message: 'List not found' })
     }
 
-    todoList.updateTodo(todoId, text)
+    todoList.updateTodo(todoId, text, isDone)
 
     res.json(todoList)
   })

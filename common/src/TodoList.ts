@@ -26,14 +26,13 @@ class TodoList {
     this.todos.push(todo)
   }
 
-  updateTodo = (todoId: string, text: string) => {
+  updateTodo = (todoId: string, text: string, isDone: boolean) => {
     const todo = this.todos.find((todo) => todo.id === todoId)
 
-    if (!todo) {
-      throw new Error('Todo not found')
+    todo.text = text || todo.text
+    if (isDone !== undefined) {
+      todo.isDone = isDone
     }
-
-    todo.text = text
   }
 
   deleteTodo = (todoId: string) => {
