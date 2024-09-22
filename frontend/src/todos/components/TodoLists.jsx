@@ -11,12 +11,13 @@ import {
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import { TodoListForm } from './TodoListForm'
 
+// TODO: Extract API logic to a separate file
+// TODO: Use common TodoList package for contract
 const deleteTodo = (listId, todoId) =>
   fetch(`http://localhost:3001/todo-list/${listId}/todo/${todoId}`, {
     method: 'DELETE',
   }).then((response) => response.json())
 
-// TODO: Use common TodoList package for contract
 const fetchTodoLists = () =>
   fetch('http://localhost:3001/todo-lists/').then((response) => response.json())
 

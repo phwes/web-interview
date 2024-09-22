@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express'
 
+// TODO: Split into controller and route files
 const todoListRoutes = (router: Router) => {
   router.get('/todo-lists', (req: Request, res: Response) => {
     res.json(req.todoLists)

@@ -18,6 +18,7 @@ export const TodoListForm = ({ todoList, onAddTodo, onDeleteTodo, onEditTodo }) 
         </Typography>
         <form style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
           {todos.map((todo, index) => (
+            // TODO: Extract todo item to a separate component
             <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
               <Typography sx={{ margin: '8px' }} variant='h6'>
                 {index + 1}
