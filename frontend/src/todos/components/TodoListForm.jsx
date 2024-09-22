@@ -8,10 +8,14 @@ export const TodoListForm = ({ todoList, onAddTodo, onDeleteTodo, onEditTodo }) 
   const [todos, setTodos] = useState(todoList.todos)
   const [isSaved, setIsSaved] = useState(true)
 
+  const listIsDone = todos.every((todo) => todo.isDone)
+
   return (
     <Card sx={{ margin: '0 1rem' }}>
       <CardContent>
-        <Typography component='h2'>{todoList.name}</Typography>
+        <Typography component='h2'>
+          {todoList.name} - {listIsDone ? 'Completed' : 'Ongoing'}
+        </Typography>
         <form style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
           {todos.map((todo, index) => (
             <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
